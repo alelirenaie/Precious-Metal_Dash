@@ -6,24 +6,20 @@ import pandas as pd
 data = pd.read_csv("precious_metals_prices_2018_2021.csv")
 data["DateTime"] = pd.to_datetime(data["DateTime"], format="%Y-%m-%d %H:%M:%S")
 
-# Create a plotly plot for use by st.plotly_chart().
-fig = px.line(
-    data,
-    title="Precious Metal Prices 2018-2021",
-    x="DateTime",
-    y=["Gold"],
-    color_discrete_map={"Gold": "gold"}
-)
+# Set custom colors
+background_color = "#1E1E1E"  # Dark background
+text_color = "#FFFFFF"  # White text
 
+# Streamlit app layout customization
 st.set_page_config(
     page_title="Precious Metal Prices 2018-2021",
-    page_icon="💰"
+    page_icon="💰",
+    layout="wide",  # Adjust the layout as needed
 )
 
-st.title("Precious Metal Prices 2018-2021")
-
-# Header Description
-st.write("The cost of precious metals between 2018 and 2021")
+# Customize Streamlit title and description
+st.title("💰 Precious Metal Prices 2018-2021")
+st.markdown("The cost of precious metals between 2018 and 2021")
 
 # Metal Filter
 selected_metal = st.selectbox("Select Metal", data.columns[1:], index=0)
@@ -34,7 +30,7 @@ end_date = st.date_input("End Date", min_value=data["DateTime"].min().date(), ma
 
 filtered_data = data.loc[(data.DateTime >= str(start_date)) & (data.DateTime <= str(end_date))]
 
-# Plotly Chart
+# Plotly Chart with custom colors
 fig = px.line(
     filtered_data,
     title="Precious Metal Prices 2018-2021",
@@ -58,8 +54,10 @@ fig.update_layout(
     font=dict(
         family="Verdana, sans-serif",
         size=18,
-        color="white"
+        color=text_color
     ),
+    plot_bgcolor=background_color,  # Set background color
+    paper_bgcolor=background_color,  # Set background color
 )
 
 # Display Plotly Chart
