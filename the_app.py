@@ -50,7 +50,6 @@ fig.update_layout(
     font=dict(
         family="Verdana, sans-serif",
         size=18,
-        color=pink
     )
 )
 
