@@ -48,7 +48,7 @@ fig = px.line(
 )
 
 fig.update_layout(
-    template="plotly_dark",
+    template="seaborn",
     xaxis_title="Date",
     yaxis_title="Price (USD/oz)",
     font=dict(
