@@ -6,15 +6,6 @@ import pandas as pd
 data = pd.read_csv("precious_metals_prices_2018_2021.csv")
 data["DateTime"] = pd.to_datetime(data["DateTime"], format="%Y-%m-%d %H:%M:%S")
 
-# Create a default plot using Plotly Express
-fig = px.line(
-    data,
-    title="Precious Metal Prices 2018-2021",
-    x="DateTime",
-    y=["Gold"],
-    color_discrete_map={"Gold": "gold"}
-)
-
 # Streamlit app layout
 st.set_page_config(
     page_title="Precious Metal Prices 2018-2021",
@@ -27,10 +18,17 @@ st.markdown("The cost of precious metals between 2018 and 2021")
 
 # Sidebar for user inputs
 metal_filter = st.sidebar.selectbox("Select Metal", data.columns[1:], index=1)
-date_range = st.sidebar.date_input("Select Date Range", [data.DateTime.min(), data.DateTime.max()])
+
+# Create a range slider for date selection
+start_date, end_date = st.sidebar.date_slider(
+    "Select Date Range",
+    min_value=data["DateTime"].min(),
+    max_value=data["DateTime"].max(),
+    value=(data["DateTime"].min(), data["DateTime"].max())
+)
 
 # Filter data
-filtered_data = data.loc[(data.DateTime >= date_range[0]) & (data.DateTime <= date_range[1])]
+filtered_data = data.loc[(data["DateTime"] >= start_date) & (data["DateTime"] <= end_date)]
 
 # Display chart
 st.plotly_chart(px.line(
