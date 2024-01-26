@@ -6,51 +6,56 @@ import pandas as pd
 data = pd.read_csv("precious_metals_prices_2018_2021.csv")
 data["DateTime"] = pd.to_datetime(data["DateTime"], format="%Y-%m-%d %H:%M:%S")
 
-# Streamlit app layout
-st.set_page_config(
-    page_title="Precious Metal Prices 2018-2021"
-   # page_icon="💰"
-)
-
-# Display header
-st.title("Precious Metal Prices")
-st.markdown("The cost of precious metals between 2018 and 2021")
-
-# Sidebar for user inputs
-metal_filter = st.sidebar.selectbox("Select Metal", data.columns[1:], index=1)
-
-# Create a range slider for date selection
-start_date, end_date = st.sidebar.date_slider(
-    "Select Date Range",
-    min_value=data["DateTime"].min(),
-    max_value=data["DateTime"].max(),
-    value=(data["DateTime"].min(), data["DateTime"].max())
-)
-
-# Filter data
-filtered_data = data.loc[(data["DateTime"] >= start_date) & (data["DateTime"] <= end_date)]
-
-# Display chart
-st.plotly_chart(px.line(
-    filtered_data,
-    title=f"Precious Metal Prices 2018-2021 - {metal_filter}",
+# Create a plotly plot for use by st.plotly_chart().
+fig = px.line(
+    data,
+    title="Precious Metal Prices 2018-2021",
     x="DateTime",
-    y=[metal_filter],
+    y=["Gold"],
+    color_discrete_map={"Gold": "gold"}
+)
+
+st.title("Precious Metal Prices 2018-2021")
+
+# Header Description
+st.write("The cost of precious metals between 2018 and 2021")
+
+# Metal Filter
+selected_metal = st.selectbox("Select Metal", data.columns[1:], index=0)
+
+# Date Range Filter
+start_date = st.date_input("Start Date", min_value=data["DateTime"].min().date(), max_value=data["DateTime"].max().date(), value=data["DateTime"].min().date())
+end_date = st.date_input("End Date", min_value=data["DateTime"].min().date(), max_value=data["DateTime"].max().date(), value=data["DateTime"].max().date())
+
+filtered_data = data.loc[(data.DateTime >= str(start_date)) & (data.DateTime <= str(end_date))]
+
+# Plotly Chart
+fig = px.line(
+    filtered_data,
+    title="Precious Metal Prices 2018-2021",
+    x="DateTime",
+    y=[selected_metal],
     color_discrete_map={
-        "Platinum": "#B4B8C4",
-        "Gold": "#FFD700",
-        "Silver": "#C0C0C0",
-        "Palladium": "#FF914D",
-        "Rhodium": "#8E9EAB",
-        "Iridium": "#9BF6FF",
-        "Ruthenium": "#D3A297"
+        "Platinum": "#E5E4E2",
+        "Gold": "gold",
+        "Silver": "silver",
+        "Palladium": "#CED0DD",
+        "Rhodium": "#E2E7E1",
+        "Iridium": "#3D3C3A",
+        "Ruthenium": "#C9CBC8"
     }
-).update_layout(
+)
+
+fig.update_layout(
     template="plotly_dark",
     xaxis_title="Date",
-    yaxis_title=f"Price ({metal_filter} - USD/oz)",
-    font=dict(family="Arial", size=18, color="white")
-))
+    yaxis_title="Price (USD/oz)",
+    font=dict(
+        family="Verdana, sans-serif",
+        size=18,
+        color="white"
+    ),
+)
 
-# Display footer
-st.markdown("Designed with ❤️ by AleliRenaie")
+# Display Plotly Chart
+st.plotly_chart(fig, use_container_width=True)
