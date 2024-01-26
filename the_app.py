@@ -18,7 +18,7 @@ st.title("💰 Precious Metal Prices")
 st.markdown("The cost of precious metals between 2018 and 2021")
 
 # Metal Filter
-selected_metal = st.selectbox("Select Metal", data.columns[1:], index=0)
+selected_metal = st.selectbox("Metal", data.columns[1:], index=0)
 
 # Date Range Filter
 start_date = st.date_input("Start Date", min_value=data["DateTime"].min().date(), max_value=data["DateTime"].max().date(), value=data["DateTime"].min().date())
