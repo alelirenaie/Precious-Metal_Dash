@@ -20,7 +20,7 @@ st.set_page_config(
     page_icon="💰"
 )
 
-#st.title("Precious Metal Prices 2018-2021")
+st.title("Precious Metal Prices 2018-2021")
 
 # Header Description
 st.write("The cost of precious metals between 2018 and 2021")
