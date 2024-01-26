@@ -6,10 +6,6 @@ import pandas as pd
 data = pd.read_csv("precious_metals_prices_2018_2021.csv")
 data["DateTime"] = pd.to_datetime(data["DateTime"], format="%Y-%m-%d %H:%M:%S")
 
-# Set custom colors
-background_color = "#1E1E1E"  # Dark background
-text_color = "#FFFFFF"  # White text
-
 # Streamlit app layout customization
 st.set_page_config(
     page_title="Precious Metal Prices 2018-2021",
@@ -48,16 +44,14 @@ fig = px.line(
 )
 
 fig.update_layout(
-    template="seaborn",
+    template="simple_white",
     xaxis_title="Date",
     yaxis_title="Price (USD/oz)",
     font=dict(
         family="Verdana, sans-serif",
         size=18,
-        color=text_color
+        color=pink
     ),
-    plot_bgcolor=background_color,  # Set background color
-    paper_bgcolor=background_color,  # Set background color
 )
 
 # Display Plotly Chart
