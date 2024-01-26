@@ -37,13 +37,13 @@ fig = px.line(
     x="DateTime",
     y=[selected_metal],
     color_discrete_map={
-        "Platinum": "#E5E4E2",
+        "Platinum": "lightgray",
         "Gold": "gold",
         "Silver": "silver",
-        "Palladium": "#CED0DD",
-        "Rhodium": "#E2E7E1",
-        "Iridium": "#3D3C3A",
-        "Ruthenium": "#C9CBC8"
+        "Palladium": "lightpink",
+        "Rhodium": "lightblue",
+        "Iridium": "lightgreen",
+        "Ruthenium": "lightcoral"
     }
 )
 
