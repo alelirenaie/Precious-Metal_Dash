@@ -51,7 +51,7 @@ fig.update_layout(
         family="Verdana, sans-serif",
         size=18,
         color=pink
-    ),
+    )
 )
 
 # Display Plotly Chart
