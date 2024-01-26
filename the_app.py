@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Customize Streamlit title and description
-st.title("💰 Precious Metal Prices 2018-2021")
+st.title("💰 Precious Metal Prices")
 st.markdown("The cost of precious metals between 2018 and 2021")
 
 # Metal Filter
