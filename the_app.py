@@ -8,8 +8,8 @@ data["DateTime"] = pd.to_datetime(data["DateTime"], format="%Y-%m-%d %H:%M:%S")
 
 # Streamlit app layout
 st.set_page_config(
-    page_title="Precious Metal Prices 2018-2021",
-    page_icon="💰"
+    page_title="Precious Metal Prices 2018-2021"
+   # page_icon="💰"
 )
 
 # Display header
